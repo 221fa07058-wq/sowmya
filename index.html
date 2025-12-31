@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy New Year Sannihitha! 🌸</title>
+<title>Happy New Year Sowmya! 🌸</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -13,13 +13,14 @@
 :root {
   --soft-pink: #ffc0cb;
   --sakura-pink: #ffd1dc;
-  --white-glow: #ffffff;
   --bg-dark: #0d0d0d;
+  --heading-font: 'Playfair Display', serif;
+  --body-font: 'Montserrat', sans-serif;
 }
 
 html, body {
   margin: 0; padding: 0; height: 100%;
-  font-family: 'Montserrat', sans-serif; /* Body Font */
+  font-family: var(--body-font);
   overflow: hidden;
   background: var(--bg-dark);
 }
@@ -39,10 +40,16 @@ html, body {
 }
 .hidden { opacity: 0; pointer-events: none; transform: scale(1.1); }
 
+/* --- HEADINGS --- */
+h1, h2, .frame-heading {
+  font-family: var(--heading-font);
+  color: var(--soft-pink);
+  letter-spacing: 0.5px;
+}
+
 h2.frame-heading {
-  font-family: 'Playfair Display', serif; /* Heading Font */
-  color: var(--soft-pink); margin-bottom: 30px; font-weight: 700;
-  letter-spacing: 1px; max-width: 80%; text-shadow: 0 0 5px rgba(255,192,203,0.5);
+  margin-bottom: 30px; font-weight: 700; font-size: 1.8rem;
+  max-width: 80%; text-shadow: 0 0 5px rgba(255,192,203,0.3);
 }
 
 /* --- STAGE 1: TIMER --- */
@@ -51,17 +58,16 @@ h2.frame-heading {
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   cursor: pointer; position: relative; border: 1px solid rgba(255,192,203,0.2);
 }
-svg { transform: rotate(-90deg); }
 #progress-bar { 
-  stroke: var(--soft-pink); stroke-width: 6; 
-  stroke-dasharray: 502; 
-  stroke-dashoffset: 502; /* Fixed: Added initial offset for animation to work */
-  transition: 2.5s linear; 
-  filter: drop-shadow(0 0 10px var(--soft-pink));
+  stroke: var(--soft-pink); stroke-width: 6; stroke-dasharray: 502; stroke-dashoffset: 502; 
+  transition: 2.5s linear; filter: drop-shadow(0 0 10px var(--soft-pink));
 }
-.timer-box span { position: absolute; color: white; font-weight: bold; letter-spacing: 2px; font-size: 0.8rem; }
+.timer-box span { 
+    position: absolute; color: white; font-weight: 600; 
+    letter-spacing: 2px; font-size: 0.9rem;
+}
 
-/* --- STAGE 2: BESTIE CARDS --- */
+/* --- STAGE 2: CLUMSY BESTIE CARDS --- */
 .search-container { position: relative; width: 350px; height: 350px; display: flex; justify-content: center; align-items: center; }
 .gift-img { 
     width: 170px; border-radius: 25px; 
@@ -70,14 +76,22 @@ svg { transform: rotate(-90deg); }
 }
 
 .wish-card {
-  position: absolute; width: 280px; height: 150px;
-  background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 192, 203, 0.3); border-radius: 20px;
+  position: absolute; width: 250px; height: 130px;
+  background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 192, 203, 0.4); border-radius: 20px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem; color: #fff; cursor: pointer; transition: 0.5s;
+  font-size: 1.1rem; color: #fff; cursor: pointer; transition: 0.5s;
+  font-weight: 400; padding: 15px;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
 }
-.wish-card:hover { border-color: var(--white-glow); box-shadow: 0 0 25px var(--soft-pink); }
-.wish-card.exit { transform: scale(0); opacity: 0; }
+/* Clumsy pile effect */
+.c1 { transform: rotate(-10deg) translate(-10px, -20px); }
+.c2 { transform: rotate(8deg) translate(20px, 15px); }
+.c3 { transform: rotate(-5deg) translate(-5px, 30px); }
+.c4 { transform: rotate(12deg) translate(-25px, -10px); }
+
+.wish-card:hover { border-color: #fff; transform: scale(1.05); }
+.wish-card.exit { transform: scale(0) rotate(-45deg); opacity: 0; pointer-events: none; }
 
 /* --- STAGE 3: PHOTO STACK --- */
 .stack { position: relative; width: 300px; height: 420px; }
@@ -89,58 +103,47 @@ svg { transform: rotate(-90deg); }
 .img-card img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
 .img-card.swipe { transform: translate(-150%, -20%) rotate(-20deg); opacity: 0; pointer-events: none; }
 
-/* --- TRANSITION --- */
-#transition-line { display: none; z-index: 100; }
-#transition-line h2 { font-family: 'Playfair Display', serif; color: var(--soft-pink); font-size: 1.8rem; font-style: italic; }
-
 /* --- STAGE 4: FINAL --- */
-#final { background: var(--bg-dark); display: none; }
-
-@keyframes softGlow {
-  from { text-shadow: 0 0 10px var(--soft-pink), 0 0 20px var(--soft-pink); }
-  to { text-shadow: 0 0 20px var(--soft-pink), 0 0 40px #fff; }
-}
-
+#final { background: var(--bg-dark); display: none; overflow-y: auto; }
+.letter { max-width: 550px; padding: 40px 20px; }
 .letter h1 { 
-  font-family: 'Playfair Display', serif;
-  font-size: 2.5rem; 
-  color: var(--soft-pink); 
+  font-size: 2.8rem; line-height: 1.2;
   animation: softGlow 2s ease-in-out infinite alternate;
 }
 .letter p { 
-  font-family: 'Montserrat', sans-serif;
-  color: #fce4ec; 
-  font-size: 1.1rem; 
-  max-width: 500px; 
-  margin-top: 20px;
-  line-height: 1.8;
-  font-weight: 300;
+  color: #fce4ec; font-size: 1.1rem; line-height: 1.8; 
+  margin-top: 20px; font-weight: 300; text-align: justify;
+}
+
+@keyframes softGlow {
+  from { text-shadow: 0 0 10px var(--soft-pink); }
+  to { text-shadow: 0 0 20px var(--soft-pink), 0 0 40px #fff; }
 }
 </style>
 </head>
 <body>
 
 <div id="stage1" class="screen">
-  <h2 class="frame-heading">sowmya gadu Ready for a 2026 surprise? <br>Just tap start! 🌸</h2>
+  <h2 class="frame-heading">Sowmya, are you ready for a 2026 surprise? <br>Just tap start! 🌸</h2>
   <div class="timer-box" onclick="runTimer()">
-    <svg width="180" height="180"><circle cx="90" cy="90" r="80" stroke="#1a1a1a" fill="none"/><circle id="progress-bar" cx="90" cy="90" r="80" fill="none"/></svg>
-    <span id="btnText">OPEN IT</span>
+    <svg width="180" height="180"><circle cx="90" cy="90" r="80" stroke="#1a1a1a" fill="none" /><circle id="progress-bar" cx="90" cy="90" r="80" fill="none" stroke-linecap="round"/></svg>
+    <span>OPEN IT</span>
   </div>
 </div>
 
 <div id="stage2" class="screen hidden">
-  <h2 class="frame-heading">Our friendship goals for next year... swipe them away! 🥺</h2>
+  <h2 class="frame-heading">Clear the clumsy mess to reveal the gift... 🥺</h2>
   <div class="search-container">
     <img src="gift.webp" class="gift-img" id="mainGift" onclick="openGift()">
-    <div class="wish" style="top: -10%; left: 10%;">👯‍♀️ More Travel</div>
-    <div class="wish" style="top: 15%; left: 5%;">🍕 Endless Food Dates</div>
-    <div class="wish" style="top: 70%; left: 5%;">🍦 Pure Happiness</div>
-    <div class="wish" style="top: 45%; left: 15%;">✨ Always Together</div>
+    <div class="wish-card c1" onclick="this.classList.add('exit'); checkWishes();">👯‍♀️ More Travel Adventures</div>
+    <div class="wish-card c2" onclick="this.classList.add('exit'); checkWishes();">🍕 Endless Late Night Cravings</div>
+    <div class="wish-card c3" onclick="this.classList.add('exit'); checkWishes();">🍦 Pure Happiness & Glow</div>
+    <div class="wish-card c4" onclick="this.classList.add('exit'); checkWishes();">✨ Always Beside Each Other</div>
   </div>
 </div>
 
 <div id="stage3" class="screen hidden">
-  <h2 class="frame-heading">The Best Memories</h2>
+  <h2 class="frame-heading">Our Best Memories</h2>
   <div class="stack">
     <div id="pic3" class="img-card" style="transform: rotate(-8deg); z-index: 1; display: none;"><img src="pic3.jpeg"></div>
     <div id="pic2" class="img-card" style="transform: rotate(6deg); z-index: 2;"><img src="pic2.jpeg"></div>
@@ -149,20 +152,24 @@ svg { transform: rotate(-90deg); }
 </div>
 
 <div id="transition-line" class="screen">
-  <h2>"To my person... next year is going to be iconic."</h2>
+  <h2 style="font-style: italic;">"To my favorite person... next year is going to be iconic."</h2>
 </div>
 
 <div id="final" class="screen">
   <div class="letter">
     <h1>HAPPY 2026, BESTIE! 🌸</h1>
-    <p>Sowmya, thank you for being the person I can always count on. May your 2026 be filled with as much laughter as we share every single day. Let's make more chaotic memories❤️. Thank you for being beside me all through the years 2025.</p>
+    <p>Sowmya, thank you for being the person I can always count on. Looking back at 2025, I realize how much your friendship kept me going. Thank you for being beside me through every high and low.</p>
+    
+    <p>May your 2026 be filled with as much laughter as we share every single day. Let's make more chaotic memories and chase our dreams together❤️. You aren't just a friend; you're a part of my best memories.</p>
+    
     <br>
-    <h1 style="font-size: 1.8rem;">You're The Best! 💖</h1>
+    <h1>You're The Best! 💖</h1>
     <p style="font-weight: 600; font-size: 1.4rem; color: var(--soft-pink); margin-top: 20px;">Best Friends Forever ❤️</p>
   </div>
 </div>
 
 <script>
+// Generate background stars
 for (let i = 0; i < 60; i++) {
   let star = document.createElement('div');
   star.className = 'star';
@@ -173,13 +180,8 @@ for (let i = 0; i < 60; i++) {
 
 function bigSplash() {
   confetti({
-    particleCount: 200,
-    spread: 100,
-    startVelocity: 50,
-    origin: { y: 0.6 },
-    colors: ['#ffc0cb', '#ffffff', '#ffd1dc', '#ffb6c1'],
-    gravity: 0.8,
-    ticks: 300
+    particleCount: 200, spread: 100, startVelocity: 50, origin: { y: 0.6 },
+    colors: ['#ffc0cb', '#ffffff', '#ffd1dc', '#ffb6c1'], gravity: 0.8
   });
 }
 
@@ -191,16 +193,13 @@ function runTimer() {
   }, 2600);
 }
 
-let wishesRemoved = 0;
-const wishesArr = document.querySelectorAll('.wish');
-wishesArr.forEach((w, i) => {
-  w.className = 'wish-card';
-  w.style.zIndex = 50 - i;
-  w.onclick = (e) => { e.stopPropagation(); w.classList.add('exit'); wishesRemoved++; };
-});
+let removedCount = 0;
+function checkWishes() {
+  removedCount++;
+}
 
 function openGift() {
-  if (wishesRemoved < wishesArr.length) return alert("Swipe the goals first, sowmya 🌸");
+  if (removedCount < 4) return alert("Swipe those clumsy goals first, Sowmya! 🌸");
   bigSplash();
   setTimeout(() => {
     document.getElementById('stage2').classList.add('hidden');
@@ -209,9 +208,9 @@ function openGift() {
 }
 
 let photosSwiped = 0;
-const cards = [document.getElementById('pic1'), document.getElementById('pic2'), document.getElementById('pic3')];
-
-cards.forEach((card) => {
+const cards = ['pic1', 'pic2', 'pic3'];
+cards.forEach((id) => {
+  const card = document.getElementById(id);
   card.onclick = () => {
     card.classList.add('swipe');
     photosSwiped++;
